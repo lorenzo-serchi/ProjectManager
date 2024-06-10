@@ -1,0 +1,12 @@
+package com.github.lorenzosmc.model;
+
+public enum RequestType {
+	WORKGROUP_VERIFICATION,
+	MEETING,
+	EXAM,
+	TASK_PROPOSAL,
+	TASK_PROGRESS_REVIEW,
+	CHECKPOINT,
+	PUBLISHING_CONSENT,
+	JOIN_WORKGROUP
+}

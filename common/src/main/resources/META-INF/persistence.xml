@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/
+								 https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+		 	 version="3.0">
+	
+	<persistence-unit name="APPOINTMENT_SERVICE_MYSQL">
+		<jta-data-source>java:/AppointmentServiceDS</jta-data-source>
+		       
+		<class>com.github.lorenzosmc.projectmanager.common.model.BaseEntity</class>
+		<class>com.github.lorenzosmc.model.Appointment</class>
+		<class>com.github.lorenzosmc.model.Context</class>
+		<class>com.github.lorenzosmc.model.Participation</class>
+		<class>com.github.lorenzosmc.model.User</class>
+		<class>com.github.lorenzosmc.model.Workgroup</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<!-- translate Jakarta Bean Validation to DDL -->
+			<property name="hibernate.validator.apply_to_ddl" value = "true"/>	
+		
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>	
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.use_sql_comments" value="true"/>
+
+			<property name="hibernate.default_batch_fetch_size" value="16"/>
+			<property name="hibernate.jdbc.batch_size" value="100"/>
+			<property name="hibernate.order_inserts" value="true"/>
+			<property name="hibernate.order_updates" value="true"/>
+			<property name="hibernate.id.new_generator_mappings" value="true"/>
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="CONTEXT_SERVICE_MYSQL">
+		<jta-data-source>java:/ContextServiceDS</jta-data-source>
+		
+		<class>com.github.lorenzosmc.projectmanager.common.model.BaseEntity</class>
+		<class>com.github.lorenzosmc.model.Collaboration</class>
+		<class>com.github.lorenzosmc.model.Context</class>
+		<class>com.github.lorenzosmc.model.Faq</class>
+		<class>com.github.lorenzosmc.model.File</class>
+		<class>com.github.lorenzosmc.model.Message</class>
+		<class>com.github.lorenzosmc.model.Participation</class>
+		<class>com.github.lorenzosmc.model.Project</class>
+		<class>com.github.lorenzosmc.model.Tag</class>
+		<class>com.github.lorenzosmc.model.TagAssignment</class>
+		<class>com.github.lorenzosmc.model.Task</class>
+		<class>com.github.lorenzosmc.model.Topic</class>
+		<class>com.github.lorenzosmc.model.User</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<!-- translate Jakarta Bean Validation to DDL -->
+			<property name="hibernate.validator.apply_to_ddl" value = "true"/>	
+		
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>	
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.use_sql_comments" value="true"/>
+
+			<property name="hibernate.default_batch_fetch_size" value="16"/>
+			<property name="hibernate.jdbc.batch_size" value="100"/>
+			<property name="hibernate.order_inserts" value="true"/>
+			<property name="hibernate.order_updates" value="true"/>
+			<property name="hibernate.id.new_generator_mappings" value="true"/>		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="NOTIFICATION_SERVICE_MYSQL">
+		<jta-data-source>java:/NotificationServiceDS</jta-data-source>
+		
+		<class>com.github.lorenzosmc.projectmanager.common.model.BaseEntity</class>
+		<class>com.github.lorenzosmc.model.Inbox</class>
+		<class>com.github.lorenzosmc.model.Notification</class>
+		<class>com.github.lorenzosmc.model.Publisher</class>
+		<class>com.github.lorenzosmc.model.Resource</class>
+		<class>com.github.lorenzosmc.model.Rule</class>
+		<class>com.github.lorenzosmc.model.Topic</class>
+		<class>com.github.lorenzosmc.model.Update</class>
+		<class>com.github.lorenzosmc.model.UpdatePreference</class>
+		<class>com.github.lorenzosmc.model.User</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<!-- translate Jakarta Bean Validation to DDL -->
+			<property name="hibernate.validator.apply_to_ddl" value = "true"/>	
+		
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>	
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.use_sql_comments" value="true"/>
+
+			<property name="hibernate.default_batch_fetch_size" value="16"/>
+			<property name="hibernate.jdbc.batch_size" value="100"/>
+			<property name="hibernate.order_inserts" value="true"/>
+			<property name="hibernate.order_updates" value="true"/>
+			<property name="hibernate.id.new_generator_mappings" value="true"/>		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="PROJECT_SERVICE_MYSQL">
+		<jta-data-source>java:/ProjectServiceDS</jta-data-source>
+		
+		<class>com.github.lorenzosmc.projectmanager.common.model.BaseEntity</class>
+		<class>com.github.lorenzosmc.model.Checkpoint</class>
+		<class>com.github.lorenzosmc.model.Context</class>
+		<class>com.github.lorenzosmc.model.File</class>
+		<class>com.github.lorenzosmc.model.Folder</class>
+		<class>com.github.lorenzosmc.model.Message</class>
+		<class>com.github.lorenzosmc.model.Participant</class>
+		<class>com.github.lorenzosmc.model.Project</class>
+		<class>com.github.lorenzosmc.model.AbstractResourceImpl</class>
+		<class>com.github.lorenzosmc.model.Tag</class>
+		<class>com.github.lorenzosmc.model.Tag</class>
+		<class>com.github.lorenzosmc.model.Task</class>
+		<class>com.github.lorenzosmc.model.TaskProgressReview</class>
+		<class>com.github.lorenzosmc.model.Topic</class>
+		<class>com.github.lorenzosmc.model.User</class>
+		<class>com.github.lorenzosmc.model.Workgroup</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<!-- translate Jakarta Bean Validation to DDL -->
+			<property name="hibernate.validator.apply_to_ddl" value = "true"/>	
+		
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>	
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.use_sql_comments" value="true"/>
+
+			<property name="hibernate.default_batch_fetch_size" value="16"/>
+			<property name="hibernate.jdbc.batch_size" value="100"/>
+			<property name="hibernate.order_inserts" value="true"/>
+			<property name="hibernate.order_updates" value="true"/>
+			<property name="hibernate.id.new_generator_mappings" value="true"/>		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="REQUEST_SERVICE_MYSQL">
+		<jta-data-source>java:/RequestServiceDS</jta-data-source>
+		
+		<class>com.github.lorenzosmc.projectmanager.common.model.BaseEntity</class>
+		<class>com.github.lorenzosmc.model.Context</class>
+		<class>com.github.lorenzosmc.model.Participant</class>
+		<class>com.github.lorenzosmc.model.Participant</class>
+		<class>com.github.lorenzosmc.model.Request</class>
+		<class>com.github.lorenzosmc.model.Task</class>
+		<class>com.github.lorenzosmc.model.Workgroup</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<!-- translate Jakarta Bean Validation to DDL -->
+			<property name="hibernate.validator.apply_to_ddl" value = "true"/>	
+		
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>	
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.use_sql_comments" value="true"/>
+
+			<property name="hibernate.default_batch_fetch_size" value="16"/>
+			<property name="hibernate.jdbc.batch_size" value="100"/>
+			<property name="hibernate.order_inserts" value="true"/>
+			<property name="hibernate.order_updates" value="true"/>
+			<property name="hibernate.id.new_generator_mappings" value="true"/>		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="USER_SERVICE_MYSQL">
+		<jta-data-source>java:/UserServiceDS</jta-data-source>
+		
+		<class>com.github.lorenzosmc.projectmanager.common.model.BaseEntity</class>
+		<class>com.github.lorenzosmc.model.User</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<!-- translate Jakarta Bean Validation to DDL -->
+			<property name="hibernate.validator.apply_to_ddl" value = "true"/>	
+		
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>	
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.use_sql_comments" value="true"/>
+
+			<property name="hibernate.default_batch_fetch_size" value="16"/>
+			<property name="hibernate.jdbc.batch_size" value="100"/>
+			<property name="hibernate.order_inserts" value="true"/>
+			<property name="hibernate.order_updates" value="true"/>
+			<property name="hibernate.id.new_generator_mappings" value="true"/>		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="WORKGROUP_SERVICE_MYSQL">
+		<jta-data-source>java:/WorkgroupServiceDS</jta-data-source>
+		
+		<class>com.github.lorenzosmc.projectmanager.common.model.BaseEntity</class>
+		<class>com.github.lorenzosmc.model.Appointment</class>
+		<class>com.github.lorenzosmc.model.Context</class>
+		<class>com.github.lorenzosmc.model.Membership</class>
+		<class>com.github.lorenzosmc.model.Student</class>
+		<class>com.github.lorenzosmc.model.Task</class>
+		<class>com.github.lorenzosmc.model.Workgroup</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<!-- translate Jakarta Bean Validation to DDL -->
+			<property name="hibernate.validator.apply_to_ddl" value = "true"/>	
+		
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>	
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.use_sql_comments" value="true"/>
+
+			<property name="hibernate.default_batch_fetch_size" value="16"/>
+			<property name="hibernate.jdbc.batch_size" value="100"/>
+			<property name="hibernate.order_inserts" value="true"/>
+			<property name="hibernate.order_updates" value="true"/>
+			<property name="hibernate.id.new_generator_mappings" value="true"/>		</properties>
+	</persistence-unit>
+	
+</persistence>
