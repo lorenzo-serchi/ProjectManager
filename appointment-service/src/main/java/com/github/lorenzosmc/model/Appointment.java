@@ -45,8 +45,6 @@ public class Appointment extends BaseEntity {
 	@OneToMany(mappedBy = Participation_.APPOINTMENT, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private Set<Participation> participants;
 
-	// TODO override equals() and hashCode()
-
 	protected Appointment(){}
 	
 	public Appointment(UUID uuid) {

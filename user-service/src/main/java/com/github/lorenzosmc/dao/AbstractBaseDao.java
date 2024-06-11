@@ -16,7 +16,7 @@ import java.util.UUID;
 public abstract class AbstractBaseDao<T extends BaseEntity> implements BaseDao<T> {
 	private final Class<T> entityClass;
 
-	@PersistenceContext(unitName = "USER_SERVICE_MYSQL")
+	@PersistenceContext(unitName = "MYSQL")
 	protected EntityManager entityManager;
 
 	public AbstractBaseDao(Class<T> entityClass) {

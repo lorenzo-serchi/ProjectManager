@@ -10,11 +10,18 @@
     </parent>
 
     <artifactId>request-service</artifactId>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Wildfly plugin (https://docs.wildfly.org/wildfly-maven-plugin/releases/5.0/) -->
+        <version.wildfly.maven.plugin>5.0.0.Final</version.wildfly.maven.plugin>
+
+        <!-- MySQL JDBC Connector -->
+        <mysql.connector.version>8.4.0</mysql.connector.version>
     </properties>
 
     <dependencies>
@@ -23,5 +30,81 @@
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.connector.version}</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
+                <configuration>
+                    <feature-packs>
+                        <feature-pack>
+                            <location>org.wildfly:wildfly-galleon-pack:31.0.1.Final</location>
+                        </feature-pack>
+                    </feature-packs>
+                    <add-user>
+                        <users>
+                            <user>
+                                <username>admin</username>
+                                <password>password</password>
+                                <groups>
+                                    <group>admin</group>
+                                </groups>
+                            </user>
+                        </users>
+                    </add-user>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>deploy-mysql-driver</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>deploy-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>com.mysql</groupId>
+                            <artifactId>mysql-connector-j</artifactId>
+                            <name>mysql-connector-j-${mysql.connector.version}.jar</name>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-datasource</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <address>subsystem=datasources,data-source=MysqlDS</address>
+                            <resources>
+                                <resource>
+                                    <properties>
+                                        <enabled>true</enabled>
+                                        <jndi-name>java:/MysqlDS</jndi-name>
+                                        <driver-class>com.mysql.cj.jdbc.Driver</driver-class>
+                                        <driver-name>mysql-connector-j-${mysql.connector.version}.jar</driver-name>
+                                        <connection-url>jdbc:mysql://localhost:3306/requestServiceDB</connection-url>
+                                        <user-name>javaclient</user-name>
+                                        <password>password</password>
+                                    </properties>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>image</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

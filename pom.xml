@@ -30,9 +30,6 @@
         <!-- Wildfly BOM version -->
         <version.wildfly.bom>31.0.0.Final</version.wildfly.bom>
 
-        <!-- Wildfly plugin (https://docs.wildfly.org/wildfly-maven-plugin/releases/5.0/) -->
-        <version.wildfly.maven.plugin>5.0.0.Final</version.wildfly.maven.plugin>
-
         <!-- Maven Compiler plugin -->
         <version.compiler.plugin>3.12.1</version.compiler.plugin>
         <version.surefire.plugin>3.0.0</version.surefire.plugin>
@@ -55,9 +52,6 @@
         <junit.version>5.10.2</junit.version>
         <rest.assured.version>5.4.0</rest.assured.version>
         <datafaker.version>1.4.0</datafaker.version>
-
-        <!-- MySQL JDBC Connector -->
-        <mysql.connector.version>8.4.0</mysql.connector.version>
     </properties>
 
     <!-- the JBoss Community and Red Hat GA Maven repositories -->
@@ -217,13 +211,6 @@
             <artifactId>arquillian-junit5-container</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- MySQL JDBC Connector -->
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <version>${mysql.connector.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -276,7 +263,6 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>

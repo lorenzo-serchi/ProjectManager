@@ -10,11 +10,15 @@
     </parent>
 
     <artifactId>appointment-service</artifactId>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Wildfly plugin (https://docs.wildfly.org/wildfly-maven-plugin/releases/5.0/) -->
+        <version.wildfly.maven.plugin>5.0.0.Final</version.wildfly.maven.plugin>
 
         <!-- MySQL JDBC Connector -->
         <mysql.connector.version>8.4.0</mysql.connector.version>
@@ -41,7 +45,6 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
                 <configuration>
-                    <port>9999</port>
                     <feature-packs>
                         <feature-pack>
                             <location>org.wildfly:wildfly-galleon-pack:31.0.1.Final</location>
@@ -54,30 +57,40 @@
                                 <password>password</password>
                                 <groups>
                                     <group>admin</group>
-                                    <group>user</group>
                                 </groups>
-                                <application-user>true</application-user>
                             </user>
                         </users>
                     </add-user>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>add-datasource</id>
+                        <id>deploy-mysql-driver</id>
                         <phase>package</phase>
+                        <goals>
+                            <goal>deploy-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>com.mysql</groupId>
+                            <artifactId>mysql-connector-j</artifactId>
+                            <name>mysql-connector-j-${mysql.connector.version}.jar</name>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-datasource</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>add-resource</goal>
                         </goals>
                         <configuration>
-                            <address>subsystem=datasources,data-source=java:/AppointmentServiceDS</address>
+                            <address>subsystem=datasources,data-source=MysqlDS</address>
                             <resources>
                                 <resource>
                                     <properties>
-                                        <jndi-name>java:/AppointmentServiceDS</jndi-name>
                                         <enabled>true</enabled>
-                                        <connection-url>jdbc:mysql://localhost:3306/appointmentServiceDB</connection-url>
+                                        <jndi-name>java:/MysqlDS</jndi-name>
                                         <driver-class>com.mysql.cj.jdbc.Driver</driver-class>
-                                        <driver-name>mysql</driver-name>
+                                        <driver-name>mysql-connector-j-${mysql.connector.version}.jar</driver-name>
+                                        <connection-url>jdbc:mysql://localhost:3306/appointmentServiceDB</connection-url>
                                         <user-name>javaclient</user-name>
                                         <password>password</password>
                                     </properties>
@@ -86,21 +99,10 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>containerize</id>
                         <goals>
                             <goal>image</goal>
                         </goals>
                     </execution>
-<!--                    <execution>-->
-<!--                        <phase>install</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>deploy-artifact</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <groupId>mysql</groupId>-->
-<!--                            <artifactId>mysql-connector-java</artifactId>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
                 </executions>
             </plugin>
         </plugins>

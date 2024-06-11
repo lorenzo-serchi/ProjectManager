@@ -10,11 +10,15 @@
     </parent>
 
     <artifactId>gateway-service</artifactId>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Wildfly plugin (https://docs.wildfly.org/wildfly-maven-plugin/releases/5.0/) -->
+        <version.wildfly.maven.plugin>5.0.0.Final</version.wildfly.maven.plugin>
     </properties>
 
     <dependencies>
@@ -24,4 +28,40 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
+                <configuration>
+                    <feature-packs>
+                        <feature-pack>
+                            <location>org.wildfly:wildfly-galleon-pack:31.0.1.Final</location>
+                        </feature-pack>
+                    </feature-packs>
+                    <add-user>
+                        <users>
+                            <user>
+                                <username>admin</username>
+                                <password>password</password>
+                                <groups>
+                                    <group>admin</group>
+                                </groups>
+                            </user>
+                        </users>
+                    </add-user>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>image</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

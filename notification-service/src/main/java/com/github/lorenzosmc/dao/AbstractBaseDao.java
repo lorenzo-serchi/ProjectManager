@@ -17,7 +17,7 @@ import jakarta.persistence.criteria.Root;
 public abstract class AbstractBaseDao<T extends BaseEntity> implements BaseDao<T> {
 	private final Class<T> entityClass;
 
-	@PersistenceContext(unitName = "NOTIFICATION_SERVICE_MYSQL")
+	@PersistenceContext(unitName = "MYSQL")
 	protected EntityManager entityManager;
 
 	public AbstractBaseDao(Class<T> entityClass) {
